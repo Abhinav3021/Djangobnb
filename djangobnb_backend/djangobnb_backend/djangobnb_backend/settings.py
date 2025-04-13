@@ -25,7 +25,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 DEBUG = bool(os.environ.get("DEBUG", default=0))
 
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1", "64.226.81.32"]
+ALLOWED_HOSTS = os.list('ALLOWED_HOSTS_DEPLOY')
 
 AUTH_USER_MODEL = 'useraccount.User'
 
@@ -74,6 +74,7 @@ CORS_ALLOWED_ORIGINS = [
 CSRF_TRUSTED_ORIGINS = [
     'http://127.0.0.1:8000',
     'http://127.0.0.1:3000',
+    'http://djangobnb_backend_db-1.render.com'
     
 ]
 
@@ -155,14 +156,7 @@ ASGI_APPLICATION = 'djangobnb_backend.asgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': os.environ.get("SQL_ENGINE"),
-        'NAME': os.environ.get("SQL_DATABASE"),
-        'USER': os.environ.get("SQL_USER"),
-        'PASSWORD': os.environ.get("SQL_PASSWORD"),
-        'HOST': os.environ.get("SQL_HOST"),
-        'PORT': os.environ.get("SQL_PORT"),
-    }
+    'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
 }
 
 
